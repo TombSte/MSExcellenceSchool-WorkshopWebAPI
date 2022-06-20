@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "h1EBODfAEFHkU7SP4dIGh6CdTu4w7pxFNEs5EViAL5x8UTvy9YzO3sjO+NinnievX+cvWZqo9PS6Fb41LfsaNw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tombast\\Source\\Repos\\MSExcellenceSchool-WorkshopWebAPI\\WorkshopWebAPI.API\\WorkshopWebAPI.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tombast\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\tombast\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\tombast\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\tombast\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\tombast\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\tombast\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
