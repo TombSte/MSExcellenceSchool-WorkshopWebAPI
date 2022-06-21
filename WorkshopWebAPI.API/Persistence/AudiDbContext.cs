@@ -29,6 +29,9 @@ namespace WorkshopWebAPI.API.Persistence
             ConfigureInternalColors(modelBuilder.Entity<InternalColor>());
             ConfigureModels(modelBuilder.Entity<Model>());
             ConfigureOrders(modelBuilder.Entity<Order>());
+
+            //Seeds
+            CustomerSeed(modelBuilder.Entity<Customer>());
         }
 
         #region Configurations
@@ -47,6 +50,7 @@ namespace WorkshopWebAPI.API.Persistence
         }
         private static void ConfigureConfigurationsOrders(EntityTypeBuilder<ConfigurationsOrders> builder)
         {
+            builder.HasKey(i => new { i.OrderId, i.ConfigurationId });
             builder
                 .HasOne<Configuration>()
                 .WithMany()

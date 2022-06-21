@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WorkshopWebAPI.API.Persistence;
 
 namespace WorkshopWebAPI.API.Controllers
 {
@@ -12,10 +13,11 @@ namespace WorkshopWebAPI.API.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly AudiDbContext context;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, AudiDbContext context)
         {
             _logger = logger;
+            this.context = context;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +30,13 @@ namespace WorkshopWebAPI.API.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(this.context.Customers.ToList());
         }
     }
 }
