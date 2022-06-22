@@ -31,8 +31,7 @@ namespace WorkshopWebAPI.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Trasmission = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +69,8 @@ namespace WorkshopWebAPI.API.Migrations
                 name: "Models",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
@@ -105,12 +105,12 @@ namespace WorkshopWebAPI.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ModelId = table.Column<int>(type: "int", nullable: false),
                     EngineId = table.Column<int>(type: "int", nullable: false),
                     ExternalColorId = table.Column<int>(type: "int", nullable: false),
                     InternalColorId = table.Column<int>(type: "int", nullable: false),
                     SmokerPackage = table.Column<bool>(type: "bit", nullable: false),
-                    HasSmokerPackage = table.Column<int>(type: "int", nullable: false),
+                    HasSmokerPackage = table.Column<bool>(type: "bit", nullable: false),
                     SeatType = table.Column<int>(type: "int", nullable: false),
                     ElettricFoldableExteriorMirrors = table.Column<bool>(type: "bit", nullable: false),
                     AutomaticAirConditioning = table.Column<bool>(type: "bit", nullable: false),
@@ -154,6 +154,69 @@ namespace WorkshopWebAPI.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Birthdate", "Email", "Firstname", "Lastname", "Phone" },
+                values: new object[,]
+                {
+                    { new Guid("b9e30ed2-16d2-4d80-8823-3af375945ce1"), new DateTime(1995, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "stefano.tomba@nttdata.com", "Stefano", "Tomba", "0230303049" },
+                    { new Guid("e1b327d5-471a-48ab-8c8d-04203808fcc7"), new DateTime(1994, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "luca.bianchi@nttdata.com", "Luca", "Bianchi", "0237853485" },
+                    { new Guid("ed92c708-f4c9-456c-9c5c-2b59ccbd219a"), new DateTime(1993, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "mario.rossi@nttdata.com", "Mario", "Rossi", "0230330219" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Engines",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "1.0 TFSI 95 cv" },
+                    { 2, "1.0 TFSI 116 cv" },
+                    { 3, "1.5 TFSI 150 cv" },
+                    { 4, "2.0 TFSI 200 cv" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ExternalColors",
+                columns: new[] { "Id", "ColorType", "Name" },
+                values: new object[,]
+                {
+                    { 1, 0, "Black" },
+                    { 2, 0, "Red" },
+                    { 3, 0, "Blue" },
+                    { 4, 0, "White" },
+                    { 5, 1, "White Pearl" },
+                    { 6, 1, "Black Pearl" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InternalColors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Light" },
+                    { 2, "Dark" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Models",
+                columns: new[] { "Id", "FullName", "Name" },
+                values: new object[,]
+                {
+                    { 1, "A1", "A1" },
+                    { 2, "A1 Sportback", "A1" },
+                    { 3, "A3", "A3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Configurations",
+                columns: new[] { "Id", "AutomaticAirConditioning", "ElettricFoldableExteriorMirrors", "EngineId", "ExternalColorId", "HasSmokerPackage", "InternalColorId", "ModelId", "SeatType", "SmokerPackage", "StoragePackage" },
+                values: new object[] { 1, true, true, 1, 1, true, 2, 1, 1, true, false });
+
+            migrationBuilder.InsertData(
+                table: "Configurations",
+                columns: new[] { "Id", "AutomaticAirConditioning", "ElettricFoldableExteriorMirrors", "EngineId", "ExternalColorId", "HasSmokerPackage", "InternalColorId", "ModelId", "SeatType", "SmokerPackage", "StoragePackage" },
+                values: new object[] { 2, false, false, 3, 1, true, 2, 3, 0, true, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Configurations_EngineId",

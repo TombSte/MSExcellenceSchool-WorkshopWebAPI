@@ -12,7 +12,7 @@ using WorkshopWebAPI.API.Persistence;
 namespace WorkshopWebAPI.API.Migrations
 {
     [DbContext(typeof(AudiDbContext))]
-    [Migration("20220621213304_Setup")]
+    [Migration("20220622175405_Setup")]
     partial class Setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,14 +44,14 @@ namespace WorkshopWebAPI.API.Migrations
                     b.Property<int>("ExternalColorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HasSmokerPackage")
-                        .HasColumnType("int");
+                    b.Property<bool>("HasSmokerPackage")
+                        .HasColumnType("bit");
 
                     b.Property<int>("InternalColorId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ModelId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SeatType")
                         .HasColumnType("int");
@@ -69,6 +69,36 @@ namespace WorkshopWebAPI.API.Migrations
                     b.HasIndex("ModelId");
 
                     b.ToTable("Configurations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AutomaticAirConditioning = true,
+                            ElettricFoldableExteriorMirrors = true,
+                            EngineId = 1,
+                            ExternalColorId = 1,
+                            HasSmokerPackage = true,
+                            InternalColorId = 2,
+                            ModelId = 1,
+                            SeatType = 1,
+                            SmokerPackage = true,
+                            StoragePackage = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AutomaticAirConditioning = false,
+                            ElettricFoldableExteriorMirrors = false,
+                            EngineId = 3,
+                            ExternalColorId = 1,
+                            HasSmokerPackage = true,
+                            InternalColorId = 2,
+                            ModelId = 3,
+                            SeatType = 0,
+                            SmokerPackage = true,
+                            StoragePackage = false
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.ConfigurationsOrders", b =>
@@ -123,6 +153,35 @@ namespace WorkshopWebAPI.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b9e30ed2-16d2-4d80-8823-3af375945ce1"),
+                            Birthdate = new DateTime(1995, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "stefano.tomba@nttdata.com",
+                            Firstname = "Stefano",
+                            Lastname = "Tomba",
+                            Phone = "0230303049"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed92c708-f4c9-456c-9c5c-2b59ccbd219a"),
+                            Birthdate = new DateTime(1993, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mario.rossi@nttdata.com",
+                            Firstname = "Mario",
+                            Lastname = "Rossi",
+                            Phone = "0230330219"
+                        },
+                        new
+                        {
+                            Id = new Guid("e1b327d5-471a-48ab-8c8d-04203808fcc7"),
+                            Birthdate = new DateTime(1994, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "luca.bianchi@nttdata.com",
+                            Firstname = "Luca",
+                            Lastname = "Bianchi",
+                            Phone = "0237853485"
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.Engine", b =>
@@ -138,17 +197,34 @@ namespace WorkshopWebAPI.API.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Trasmission")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Engines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "1.0 TFSI 95 cv"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "1.0 TFSI 116 cv"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "1.5 TFSI 150 cv"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "2.0 TFSI 200 cv"
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.ExternalColor", b =>
@@ -173,6 +249,44 @@ namespace WorkshopWebAPI.API.Migrations
                         .IsUnique();
 
                     b.ToTable("ExternalColors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ColorType = 0,
+                            Name = "Black"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ColorType = 0,
+                            Name = "Red"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ColorType = 0,
+                            Name = "Blue"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ColorType = 0,
+                            Name = "White"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ColorType = 1,
+                            Name = "White Pearl"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ColorType = 1,
+                            Name = "Black Pearl"
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.InternalColor", b =>
@@ -194,13 +308,27 @@ namespace WorkshopWebAPI.API.Migrations
                         .IsUnique();
 
                     b.ToTable("InternalColors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Light"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Dark"
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.Model", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -217,6 +345,26 @@ namespace WorkshopWebAPI.API.Migrations
                         .IsUnique();
 
                     b.ToTable("Models");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "A1",
+                            Name = "A1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "A1 Sportback",
+                            Name = "A1"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "A3",
+                            Name = "A3"
+                        });
                 });
 
             modelBuilder.Entity("WorkshopWebAPI.API.Persistence.Models.Order", b =>
